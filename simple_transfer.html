@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>mijin simple wallet</title>
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/components/core.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/components/x64-core.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/components/sha3.js"></script>
+<script src="transfer.js"></script>
+<script src="nacl-fast.js"></script>
+<script src="KeyPair.js"></script>
+
+
+<script>
+
+var SENDER_PRIVATE_KEY = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";	//送信元の秘密鍵
+var RECIPIENT_ADDRESS = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";								//送信先アドレス
+var RECIPIENT_PUBLIC_KEY = "yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy"; 	//送信先公開鍵
+
+//送金API URL
+var URL_TRANSACTION_ANNOUNCE = "http://xx.xxx.xxx.xxx:7895/transaction/announce";
+
+$(function(){
+
+	function sendTransferRequest(){
+
+		var result = confirm("送金します。本当によろしいですか？");
+		if(result){
+			sendAjaxRequest().done();
+		}
+	}
+	$("#btnReset").click(function(){sendTransferRequest();return false;});
+});
+	
+</script>
+</head>
+<body>
+
+<h1>送金サンプル</h1>
+<button id="btnReset">送金</button>
+</body>
+</html>
