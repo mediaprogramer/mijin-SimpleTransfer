@@ -116,7 +116,7 @@ function sendAjaxRequest(){
 	var data ={
 		'type': 0x101,
 		'version': CURRENT_NETWORK_VERSION(1),
-		'signer': RECIPIENT_PUBLIC_KEY,
+		'signer': SENDER_PUBLIC_KEY,
 		'timeStamp': timeStamp,
 		'deadline': timeStamp + due * 60
 	};
