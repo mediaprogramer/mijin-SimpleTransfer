@@ -1,3 +1,7 @@
+
+
+
+//NEM標準時
 var NEM_EPOCH = Date.UTC(2015, 2, 29, 0, 6, 25, 0);
 var _hexEncodeArray = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
 
@@ -100,6 +104,11 @@ var CURRENT_NETWORK_VERSION = function(val) {
 	return 0x60000000 | val;
 };
 
+function fixPrivateKey(privatekey) {
+	return ("0000000000000000000000000000000000000000000000000000000000000000" + privatekey.replace(/^00/, '')).slice(-64);
+}
+
+
 function sendAjaxRequest(){
 
 	var amount = parseInt(10 * 1000000, 10);
@@ -131,7 +140,7 @@ function sendAjaxRequest(){
 
 	var entity = $.extend(data, custom);
 	var result = serializeTransferTransaction(entity);
-	var kp = KeyPair.create(SENDER_PRIVATE_KEY);  
+	var kp = KeyPair.create(fixPrivateKey(SENDER_PRIVATE_KEY));  
 	var signature = kp.sign(result);
 	var obj = {'data':ua2hex(result), 'signature':signature.toString()};
 	console.log(entity);
