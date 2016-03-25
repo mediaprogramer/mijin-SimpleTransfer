@@ -28,7 +28,10 @@ $(function(){
 
 		var result = confirm("送金します。本当によろしいですか？");
 		if(result){
-			sendAjaxRequest().done();
+			sendAjaxRequest().done(
+			function(data){
+				console.log(data);
+			});
 		}
 	}
 	$("#btnReset").click(function(){sendTransferRequest();return false;});
