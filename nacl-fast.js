@@ -681,7 +681,13 @@ function crypto_sign_hash(sm, keypair, data, hasher) {
   privHash[31] |= 64;
 
   hasher.reset();
-  hasher.update(privHash.slice(32));
+//  hasher.update(privHash.slice(32));
+	var slicedPrivHash = new Uint8Array(32);
+	for (var i = 32; i < privHash.length; i++) {
+	    slicedPrivHash[ i - 32 ] = privHash[i];
+	}
+
+  hasher.update(slicedPrivHash);
   hasher.update(data);
   hasher.finalize(seededHash);
 
@@ -690,7 +696,14 @@ function crypto_sign_hash(sm, keypair, data, hasher) {
   pack(sm, p);
   
   hasher.reset();
-  hasher.update(sm.slice(0, 32));
+//  hasher.update(sm.slice(0, 32));
+
+	var slicedSm = new Uint8Array(32);
+	for (var i = 0; i < 32; i++) {
+	    slicedSm[i] = sm[i];
+	}
+
+  hasher.update(slicedSm);
   hasher.update(keypair.publicKey)
   hasher.update(data);
   hasher.finalize(result);
